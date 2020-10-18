@@ -1,7 +1,7 @@
 import 'package:chat_app/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthMods {
+class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // ignore: deprecated_member_use
