@@ -8,9 +8,12 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
 
+  final formKey = GlobalKey<FormState>();
   TextEditingController textUserName = new TextEditingController();
   TextEditingController textEmail = new TextEditingController();
   TextEditingController textPassword = new TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,32 +30,44 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextField(
-                  controller: textUserName,
-                  style: simpleTextStyle(),
-                  decoration: textFieldInputDecoration('Username'),
-                ),
-                TextField(
-                  controller: textEmail,
-                  style: simpleTextStyle(),
-                  decoration: textFieldInputDecoration('Email'),
-                ),
-                TextField(
-                  controller: textPassword,
-                  style: simpleTextStyle(),
-                  decoration: textFieldInputDecoration('Password'),
+                Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: textUserName,
+                        style: simpleTextStyle(),
+                        decoration: textFieldInputDecoration('Username'),
+                      ),
+                      TextFormField(
+                        controller: textEmail,
+                        style: simpleTextStyle(),
+                        decoration: textFieldInputDecoration('Email'),
+                      ),
+                      TextFormField(
+                        controller: textPassword,
+                        style: simpleTextStyle(),
+                        decoration: textFieldInputDecoration('Password'),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 8.0),
-                Container(
-                  alignment: Alignment.centerRight,
+                GestureDetector(
+                  onTap: () {
+                    //TODO
+                  },
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 8.0,
-                    ),
-                    child: Text(
-                      'Forgot Password?',
-                      style: simpleTextStyle(),
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
+                      child: Text(
+                        'Forgot Password?',
+                        style: simpleTextStyle(),
+                      ),
                     ),
                   ),
                 ),
