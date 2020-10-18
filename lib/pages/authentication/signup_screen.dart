@@ -1,3 +1,4 @@
+import 'package:chat_app/pages/chatlist_screen.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +25,14 @@ class _SignUpState extends State<SignUp> {
         isLoading = true;
       });
 
-      authMethods.signUpWithEmailAndPassword(
-        textEmail.text, textPassword.text).then((value) {
-          print("$value");
-        });
+      authMethods
+          .signUpWithEmailAndPassword(textEmail.text, textPassword.text)
+          .then((value) {
+        //print("${value.uid}");
+
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => ChatList()));
+      });
     }
   }
 
