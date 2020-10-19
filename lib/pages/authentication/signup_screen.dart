@@ -1,6 +1,7 @@
 import 'package:chat_app/pages/authentication/signin_screen.dart';
 import 'package:chat_app/pages/chatlist_screen.dart';
 import 'package:chat_app/services/auth.dart';
+import 'package:chat_app/services/database.dart';
 import 'package:chat_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,7 @@ class _SignUpState extends State<SignUp> {
   final formKey = GlobalKey<FormState>();
 
   AuthMethods authMethods = new AuthMethods();
+  DatabaseMethods databaseMethods = new DatabaseMethods();
 
   TextEditingController textUserName = new TextEditingController();
   TextEditingController textEmail = new TextEditingController();
@@ -25,6 +27,12 @@ class _SignUpState extends State<SignUp> {
 
   signUp() {
     if (formKey.currentState.validate()) {
+      
+      Map<String, String> userMap = {
+        "userName": textUserName.text,
+        "email": textEmail.text,
+      };
+
       setState(() {
         isLoading = true;
       });
@@ -34,6 +42,7 @@ class _SignUpState extends State<SignUp> {
           .then((value) {
         //print("${value.uid}");
 
+        databaseMethods.uploadUserInfo(userMap);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => ChatList()));
       });

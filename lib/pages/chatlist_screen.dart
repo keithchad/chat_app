@@ -1,5 +1,5 @@
 import 'package:chat_app/helper/authenticate.dart';
-import 'package:chat_app/pages/search.dart';
+import 'package:chat_app/pages/search_screen.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:flutter/material.dart';
 

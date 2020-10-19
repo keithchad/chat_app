@@ -1,7 +1,5 @@
 import 'package:chat_app/helper/authenticate.dart';
-import 'package:chat_app/pages/authentication/signin_screen.dart';
-import 'package:chat_app/pages/authentication/signup_screen.dart';
-import 'package:chat_app/pages/search.dart';
+import 'package:chat_app/pages/search_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
