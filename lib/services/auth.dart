@@ -19,7 +19,7 @@ class AuthMethods {
 
       return _userFromFirebase(firebaseUser);
     } catch (e) {
-      print(e.toSTring());
+      print(e.toString());
     }
   }
 
@@ -33,7 +33,7 @@ class AuthMethods {
 
       return _userFromFirebase(firebaseUser);
     } catch (e) {
-      print(e.toSTring());
+      print(e.toString());
     }
   }
 
@@ -41,7 +41,7 @@ class AuthMethods {
     try {
       return await _auth.sendPasswordResetEmail(email: email);
     } catch (e) {
-      print(e.toSTring());
+      print(e.toString());
     }
   }
 
