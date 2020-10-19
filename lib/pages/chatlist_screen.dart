@@ -1,6 +1,6 @@
-import 'package:chat_app/pages/authentication/signin_screen.dart';
+import 'package:chat_app/helper/authenticate.dart';
+import 'package:chat_app/pages/search.dart';
 import 'package:chat_app/services/auth.dart';
-import 'package:chat_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class ChatList extends StatefulWidget {
@@ -23,9 +23,11 @@ class _ChatListState extends State<ChatList> {
           GestureDetector(
             onTap: () {
               authMethods.signOut();
-              Navigator.pushReplacement(context, MaterialPageRoute(
-                builder: (context) => SignIn()
-              ));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Authenticate(),
+                  ));
             },
             child: Container(
                 padding: EdgeInsets.symmetric(
@@ -34,6 +36,16 @@ class _ChatListState extends State<ChatList> {
                 child: Icon(Icons.exit_to_app)),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.search),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Search(),
+              ));
+        },
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:chat_app/helper/authenticate.dart';
 import 'package:chat_app/pages/authentication/signin_screen.dart';
 import 'package:chat_app/pages/authentication/signup_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFF1F1F1F),
         primarySwatch: Colors.blue,
       ),
-      home: SignUp(),
+      home: Authenticate(),
     );
   }
 }

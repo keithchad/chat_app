@@ -1,9 +1,13 @@
+import 'package:chat_app/pages/authentication/signin_screen.dart';
 import 'package:chat_app/pages/chatlist_screen.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
+  final Function toggle;
+  SignUp(this.toggle);
+
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -163,12 +167,20 @@ class _SignUpState extends State<SignUp> {
                             "ALready have an account? ",
                             style: mediumTextStyle(),
                           ),
-                          Text(
-                            ' SignIn Now',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17.0,
-                              decoration: TextDecoration.underline,
+                          GestureDetector(
+                            onTap: () {
+                              widget.toggle();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 8.0),
+                              child: Text(
+                                ' SignIn Now',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17.0,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
                             ),
                           ),
                         ],

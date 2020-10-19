@@ -6,6 +6,7 @@ Widget appBarMain(BuildContext context) {
       'Flutter Connect',
       style: TextStyle(),
     ),
+    centerTitle: true,
   );
 }
 
