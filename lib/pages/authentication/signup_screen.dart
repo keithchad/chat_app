@@ -40,7 +40,6 @@ class _SignUpState extends State<SignUp> {
       authMethods
           .signUpWithEmailAndPassword(textEmail.text, textPassword.text)
           .then((value) {
-        //print("${value.uid}");
 
         databaseMethods.uploadUserInfo(userMap);
         Navigator.pushReplacement(
