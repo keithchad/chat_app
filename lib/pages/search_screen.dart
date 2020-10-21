@@ -1,3 +1,4 @@
+import 'package:chat_app/helper/constants.dart';
 import 'package:chat_app/services/database.dart';
 import 'package:chat_app/widgets/searchTile.dart';
 import 'package:chat_app/widgets/widgets.dart';
@@ -16,7 +17,7 @@ class _SearchState extends State<Search> {
   QuerySnapshot searchSnapshot;
 
   initiateSearch() {
-    databaseMethods.getUser(textSearch.text).then((val) {
+    databaseMethods.getUserByUsername(textSearch.text).then((val) {
       setState(() {
         searchSnapshot = val;
       });
@@ -24,11 +25,14 @@ class _SearchState extends State<Search> {
   }
 
   createChatScreen(String userName) {
-    List<String> users = [
-      userName,
-    ];
+    List<String> users = [userName, Constants.myName];
 
-   // databaseMethods.createChatScreen();
+    Map<String, dynamic> chatScreenMap = {
+      "users" : users,
+      "chatRoomID", 
+    };
+
+    // databaseMethods.createChatScreen();
   }
 
   Widget searchList() {

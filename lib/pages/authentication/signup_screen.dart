@@ -1,3 +1,4 @@
+import 'package:chat_app/helper/helperfunctions.dart';
 import 'package:chat_app/pages/authentication/signin_screen.dart';
 import 'package:chat_app/pages/chatlist_screen.dart';
 import 'package:chat_app/services/auth.dart';
@@ -27,11 +28,13 @@ class _SignUpState extends State<SignUp> {
 
   signUp() {
     if (formKey.currentState.validate()) {
-      
       Map<String, String> userMap = {
         "userName": textUserName.text,
         "email": textEmail.text,
       };
+
+      HelperFunctions.saveUserEmailSharedPreference(textEmail.text);
+      HelperFunctions.saveUserNameSharedPreference(textUserName.text);
 
       setState(() {
         isLoading = true;
@@ -40,8 +43,8 @@ class _SignUpState extends State<SignUp> {
       authMethods
           .signUpWithEmailAndPassword(textEmail.text, textPassword.text)
           .then((value) {
-
         databaseMethods.uploadUserInfo(userMap);
+        HelperFunctions.saveUserLoggedInSharedPreference(true);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => ChatList()));
       });

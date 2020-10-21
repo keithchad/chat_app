@@ -1,4 +1,9 @@
+import 'package:chat_app/helper/helperfunctions.dart';
+import 'package:chat_app/pages/chatlist_screen.dart';
+import 'package:chat_app/services/auth.dart';
+import 'package:chat_app/services/database.dart';
 import 'package:chat_app/widgets/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -10,6 +15,44 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  bool isLoading = false;
+
+  final formKey = GlobalKey<FormState>();
+
+  TextEditingController textPassword = new TextEditingController();
+  TextEditingController textEmail = new TextEditingController();
+
+  AuthMethods authMethods = new AuthMethods();
+  DatabaseMethods databaseMethods = new DatabaseMethods();
+
+  QuerySnapshot querySnapshot;
+
+  signIn() {
+    if (formKey.currentState.validate()) {
+      HelperFunctions.saveUserEmailSharedPreference(textEmail.text);
+
+      setState(() {
+        isLoading = true;
+      });
+
+      databaseMethods.getUserByEmail(textEmail.text).then((value) {
+        querySnapshot = value;
+        HelperFunctions.saveUserEmailSharedPreference(
+            querySnapshot.docs[0].data()["name"]);
+      });
+
+      authMethods
+          .signInWithEmailAndPassword(textEmail.text, textPassword.text)
+          .then((value) {
+        if (value != null) {
+          HelperFunctions.saveUserLoggedInSharedPreference(true);
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => ChatList()));
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,13 +68,33 @@ class _SignInState extends State<SignIn> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextField(
-                  style: simpleTextStyle(),
-                  decoration: textFieldInputDecoration('Email'),
-                ),
-                TextField(
-                  style: simpleTextStyle(),
-                  decoration: textFieldInputDecoration('Password'),
+                Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        validator: (val) {
+                          return val.isEmpty
+                              ? "Please provide a valid Email"
+                              : null;
+                        },
+                        controller: textEmail,
+                        style: simpleTextStyle(),
+                        decoration: textFieldInputDecoration('Email'),
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        validator: (val) {
+                          return val.length > 6
+                              ? null
+                              : "Please provide a longer password";
+                        },
+                        controller: textPassword,
+                        style: simpleTextStyle(),
+                        decoration: textFieldInputDecoration('Password'),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 8.0),
                 Container(
